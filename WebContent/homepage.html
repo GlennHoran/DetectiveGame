@@ -1,0 +1,253 @@
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="https://pingendo.github.io/templates/blank/theme.css"
+	type="text/css">
+<style>
+#header {
+	opacity: 0.8;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	opacity: 0;
+	transition: .5s ease;
+	background-color: white;
+	z-index
+	=-1;
+}
+
+.col-md-3:hover .overlay {
+	opacity: 0.8;
+}
+
+#overlay {
+	color: black;
+	font-size: 50px;
+	font-family: Impact, Charcoal, sans-serif;
+	text-align: center;
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	z-index: 1;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+body.modal-open div.modal-backdrop {
+	z-index: 0;
+}
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+</head>
+
+<body background="img\room1.jpg">
+	<div class="py-5">
+		<div class="containerfluid" id="header">
+			<div class="row">
+				<div class="col-md-11">
+					<h2 class="display-1 text-center text-white">DeTalkive</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12
+                    ">
+					<p class="lead bg-primary text-white text-center" id="header">
+						Hello &nbsp;detective!&nbsp; <br>Welcome to "deTalkive" the
+						interactive training tool for budding detectives. Using state of
+						the art AI you will learn to spot lies using inconsistencies
+						between different suspect's versions of events. Click on an active
+						case below to get started or for a more detailed overview of how
+						the game works click "how to play" (recommended).
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<a href="#myModal" role="button" data-toggle="modal"> <img
+						class="img-fluid d-block mx-auto" src="img/howto.png" id="myBtn">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="py-5 ">
+		<div class="container">
+			<div class="row" id="header">
+				<div class="col-md-12">
+					<h1 class="bg-primary text-center">Active cases</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<a href="menu.html"> <img class="img-fluid d-block"
+						src="img/background1.jpg"></a>
+				</div>
+				<div class="col-md-3">
+					<img class="img-fluid d-block" src="img/4_queens_library.jpg">
+					<div class="overlay">
+						<div class="text" id="overlay">Coming soon!</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<img class="img-fluid d-block" src="img/conference-room.jpg">
+					<div class="overlay">
+						<div class="text" id="overlay">Coming soon!</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<img class="img-fluid d-block" src="img/hw.jpg">
+					<div class="overlay">
+						<div class="text" id="overlay">Coming soon!</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<h2 class="text-center">How to play</h2>
+			<p class="text-center">
+				DeTalkive is a game of deduction. To play click on one of the active
+				case pictures below. You'll be given the background of the crime and
+				be presented with the suspects. Click on each suspect to talk with
+				them and try to get the story straight! <br> The suspects won't
+				always tell the truth, if something doesn't add up then call them
+				out on it - tell them they're lying. If you catch the suspect lying
+				they may become nervous and give more useful answers, catch them
+				lying enough and they'll; give up their deceitful ways and become
+				completely open, so be sure to ask them the same question more than
+				once!<br> The best way to approach this is to ask all of the
+				questions to all of the suspects to look for inconsistencies, then
+				you can start accusing them of lying with confidence. Once you have
+				the killer, tell them they're the murderer, or just openly ask them
+				if they killed the suspect. You might be surprised with the answer.
+				That's all there is to it! Click anywhere outside this box to get
+				started.
+			</p>
+		</div>
+
+	</div>
+
+	<script>
+ 
+
+var msg = new SpeechSynthesisUtterance("");
+var msg1 = new SpeechSynthesisUtterance("");
+var msg2 = new SpeechSynthesisUtterance("");
+var msg3 = new SpeechSynthesisUtterance("");
+var msg4 = new SpeechSynthesisUtterance("");
+var msg5 = new SpeechSynthesisUtterance("");
+var msg6 = new SpeechSynthesisUtterance("");
+msg.text = "DeTalkive is a game of deduction. To play click on one of the active case pictures below. You'll be given the background of the crime and be presented with the suspects."
+	msg1.text ="Click on each suspect to talk with them and try to get the story straight! The suspects won't always tell the truth,"
+	msg2.text ="if something doesn't add up then call them out on it - tell them they're lying.If you catch the suspect lying they may become nervous and give more useful answers,"
+	msg3.text ="catch them lying enough and they'll; give up their deceitful ways and become completely open, so be sure to ask them the same question more "
+	msg4.text=" than once! The best way to approach this is to ask all of the questions to all of the suspects to look for inconsistencies,"
+	msg5.text= "then you can start accusing them of lying with confidence. Once you have the killer, tell them they're the murderer, or just openly ask them if they killed the suspect. You might be surprised with the answer."
+	msg6.text="That's all there is to it! Click anywhere outside this box to get started.";
+
+
+
+
+
+//Get the modal
+var modal = document.getElementById('myModal');
+
+//Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+//When the user clicks the button, open the modal 
+btn.onclick = function() {
+   modal.style.display = "inline";
+  // window.speechSynthesis.speak(msg);
+ //  msg.onend = function() {
+//	   window.speechSynthesis.speak(msg1);
+//	};
+	//msg1.onend = function() {
+	//	   window.speechSynthesis.speak(msg2);
+	//	};
+	//	msg2.onend = function() {
+		//	   window.speechSynthesis.speak(msg3);
+		//	};
+		//	msg3.onend = function() {
+			//	   window.speechSynthesis.speak(msg4);
+			//	};
+			//	msg4.onend = function() {
+			//		   window.speechSynthesis.speak(msg5);
+			//		};
+				//	msg5.onend = function() {
+				//		   window.speechSynthesis.speak(msg6);
+				//		};
+						
+}
+
+
+//When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+   if (event.target == modal) {
+       modal.style.display = "none";
+   }
+}
+</script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+	<script
+		src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
+
+</body>
+
+
+</html>

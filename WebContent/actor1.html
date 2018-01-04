@@ -1,0 +1,307 @@
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+	type="text/css">
+<link rel="stylesheet"
+	href="https://pingendo.github.io/templates/blank/theme.css"
+	type="text/css">
+<style>
+#header {
+	opacity: 0.8
+}
+
+#button1 {
+	width: 200px;
+	height: 100px;
+}
+
+;
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: fixed;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	padding-top: 100px;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+	z-index: 1;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+body.modal-open div.modal-backdrop {
+	z-index: 0;
+}
+</style>
+</head>
+
+<body background="img/room1.jpg">
+	<div class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav nav-pills">
+						<li class="nav-item"><a href="menu.html"
+							class="active nav-link" id="header"> &nbsp;Back</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6 bg-primary text-white" id="header">
+							<h1 class="">John</h1>
+						</div>
+						<div class="col-md-6"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<img class="img-fluid d-block" src="img/actor11jpg.jpg"
+								height="270" width="270">
+						</div>
+						<div class="col-md-6"></div>
+					</div>
+					<div class="row">
+						<div class="bg-primary text-white col-md-6" id="header">
+							<p class="">
+							<span id="mood"></span>
+							</p>
+						</div>
+						<div class="col-md-6"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<a class="btn btn-secondary p-0 m-4" href="#" id="button1">
+								<h5>
+									Click here to <br> talk
+								</h5>
+								<p></p> <i class="fa fa-microphone fa-2x"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 bg-primary text-white" id="header">
+					<h1 class="" contenteditable="true">Try asking:</h1>
+					<p class="lead">
+						How he is? <br>How does he know the victim? <br>How did
+						he feel about the proposal? <br> what was the fight about? <br>Where
+						was he when the victim was murdered? <br>Does he know where
+						anyone else was when the murder happened? &nbsp; &nbsp; &nbsp;
+						&nbsp; &nbsp; &nbsp;&nbsp; <br>Does he think anyone of them
+						could kill the victim? <br> <br>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="py-5">
+		<div class="container">
+			<div class="row bg-primary text-white" id="header">
+				<div class="col-md-12">
+					<p class="">
+						<span id="speech"></span> <span id="interim"></span>
+					</p>
+					<p class="">
+						<span id="reply"></span>
+					</p>
+					<p></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<h2 class="text-center">Case Solved!</h2>
+			<p class="text-center">
+				Congratulations detective, you solved the case. John killed Matt in
+				a drunken jealous rage over the proposal to Caitlin. <br>
+				Thanks for playing. Please check back in the future for more cases.
+			</p>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+	<script
+		src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
+	<script>
+		var modal = document.getElementById('myModal');
+		var btn = document.getElementById("button1");
+
+		//When the user clicks the button, open the modal 
+
+		function upgrade() {
+			alert('Please use Google Chrome for best experience');
+		}
+		window.onload = function() {
+			if (!(window.webkitSpeechRecognition)
+					&& !(window.speechRecognition)) {
+				upgrade();
+			} else {
+				var voices = window.speechSynthesis.getVoices();
+
+				var msg = new SpeechSynthesisUtterance("");
+
+				var recognizing, transcription = document
+						.getElementById('speech');
+				//to determine if case is solved or not
+				var solved = false;
+
+				interim_span = document.getElementById('interim');
+				interim_span.style.opacity = '0.5';
+				function reset() {
+					recognizing = false;
+					interim_span.innerHTML = '';
+					transcription.innerHTML = '';
+					speech.start();
+				}
+
+				var speech = new webkitSpeechRecognition()
+						|| speechRecognition();
+				speech.continuous = true;
+				speech.interimResults = false;
+				speech.lang = 'en-US'; // check google web speech example source for more lanuages	
+
+				btn.onclick = function() {
+					speech.start();
+				}
+
+				speech.onstart = function() {
+					// When recognition begins
+					recognizing = true;
+				};
+				//event listner - page visibility. Uncomment if not using button to allow for user to used tabbed browsing. 
+				//document.addEventListener("visibilitychange", function() {
+				//  if (document.visibilityState == "hidden" ){
+				//        speech.stop();
+				//} else {
+				//       speech.start();
+				// };
+				//});
+				speech.onresult = function(event) {
+					speech.stop();
+					// When recognition produces result
+					var interim_transcript = '';
+					var final_transcript = '';
+					// main for loop for final and interim results
+					for (var i = event.resultIndex; i < event.results.length; ++i) {
+						if (event.results[i].isFinal) {
+							final_transcript += event.results[i][0].transcript;
+						} else {
+							interim_transcript += event.results[i][0].transcript;
+						}
+					}
+					transcription.innerHTML = final_transcript;
+					interim_span.innerHTML = interim_transcript;
+
+					var xmlhttp;
+					if (window.XMLHttpRequest) {
+						xmlhttp = new XMLHttpRequest();
+					} else {
+						xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+					}
+
+					xmlhttp.onreadystatechange = function() {
+						if ((xmlhttp.readyState == 4)
+								&& (xmlhttp.status == 200)) {
+
+							reply_span = document.getElementById("reply");
+							mood_span = document.getElementById("mood");
+							var reply = xmlhttp.responseText;
+							//if else to pick out message strings sent from server. 
+							//if solved is at the the start of the string, the case is solved and a modal will fire
+							//otherwise the first word in the string represents a mood which is displayed in the mood span
+							//the message strings are then removed from the reply before it is sent to the speech synthesiser. 
+							if (reply.startsWith("solved open")) {
+								var reply2 = reply.replace("solved open ", "");
+								solved = true;
+								reply_span.innerHTML = reply2;
+						
+							} else if (reply.startsWith("neutral")) {
+								var reply2 = reply.replace("neutral ", "");
+								mood_span.innerHTML = "John looks calm";
+								reply_span.innerHTML = reply2;
+							} else if (reply.startsWith("nervous")) {
+								var reply2 = reply.replace("nervous ", "");
+								
+								mood_span.innerHTML = "John looks nervous";
+								reply_span.innerHTML = reply2;
+							} else if (reply.startsWith("open")) {
+								var reply2 = reply.replace("open ", "");								
+								mood_span.innerHTML = "Looks like you've broke him detective, no more lies";
+								reply_span.innerHTML = reply2;
+							} else {
+
+								reply_span.innerHTML = reply;
+							}
+							//text to speech
+							msg.text = reply2;
+							var voices = window.speechSynthesis
+									.getVoices();
+							msg.voice = voices[4];
+							msg.pitch = 0;
+							msg.text = reply2;
+
+							window.speechSynthesis.speak(msg);
+						}
+					}
+
+					xmlhttp.open("GET", "/Index1.cgi/input?words="
+							+ final_transcript, true);
+					xmlhttp.send();
+
+				};
+
+				speech.onerror = function(event) {
+					// Either 'No-speech' or 'Network connection error'
+					console.error(event.error);
+					reply_span = document.getElementById("reply");
+					reply_span.innerHTML = "No speech detected, please check that your microphone is working and try again";
+					speech.stop();
+				};
+
+				//fires when speech synthesis has finished - stops speech recognition listening to synthesised speech. 
+				msg.onend = function() {
+					if (solved) {
+						modal.style.display = "block";
+					} //else {
+					//	speech.start();
+					//}
+
+				};
+
+			}
+
+		};
+	</script>
+</body>
+
+</html>

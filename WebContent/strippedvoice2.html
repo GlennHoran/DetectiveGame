@@ -1,0 +1,134 @@
+<html>
+
+<head>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://pingendo.github.io/templates/blank/theme.css" type="text/css"> </head>
+  
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col"> 
+      <img src="C:\Users\Glenn\Desktop\Playing with HTML/actor1.png"/>
+      </div>
+      <div class="col">
+        <h2>Notepad</h2>
+        <ul>
+        <li>How is the victim?</li>
+         <li>
+          How did they feel about the proposal
+        </li>
+         <li>
+          Where were they when the victim was murdered?
+        </li>
+         <li>
+          Do they know where anyone else was?
+        </li>
+         <li>
+          Do they think anyone could murder the victim
+        </li>
+         <li>
+          what was the fight about?
+        </li>
+        </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          <p class=""> <span id="speech"></span> <span id="interim"></span> </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class=""> <span id="reply"></span> </p>
+        </div>
+      </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+  <script src="https://pingendo.com/assets/bootstrap/bootstrap-4.0.0-alpha.6.min.js"></script>
+</body>
+<script>
+    function upgrade() {
+      alert('Please use Google Chrome for best experience');
+    }
+    window.onload = function() {
+      if (!(window.webkitSpeechRecognition) && !(window.speechRecognition)) {
+        upgrade();
+      } else {
+        var msg = new SpeechSynthesisUtterance("");
+        var recognizing,
+        transcription = document.getElementById('speech');
+        interim_span = document.getElementById('interim');
+        interim_span.style.opacity = '0.5';
+        function reset() {
+          recognizing = false;
+          interim_span.innerHTML = '';
+          transcription.innerHTML = '';
+          speech.start();
+        }
+        var speech = new webkitSpeechRecognition() || speechRecognition();
+        speech.continuous = true;
+        speech.interimResults = false;
+        speech.lang = 'en-US'; // check google web speech example source for more lanuages
+        speech.start(); //enables recognition on default
+        speech.onstart = function() {
+            // When recognition begins
+            recognizing = true;
+        };
+        speech.onresult = function(event) {
+          // When recognition produces result
+          var interim_transcript = '';
+          var final_transcript = '';
+          // main for loop for final and interim results
+          for (var i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+              final_transcript += event.results[i][0].transcript;
+            } else {
+              interim_transcript += event.results[i][0].transcript;
+            }
+          }
+          transcription.innerHTML = final_transcript;
+          interim_span.innerHTML = interim_transcript;
+          
+          var xmlhttp;
+          if(window.XMLHttpRequest)
+          {
+        	 xmlhttp = new XMLHttpRequest();  
+          }
+          else
+          {
+        	 xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");  
+          }
+          
+          xmlhttp.onreadystatechange = function()
+          {
+        	  if((xmlhttp.readyState==4) && (xmlhttp.status==200))
+        	  {
+        	      reply_span = document.getElementById("reply");
+        		  var reply = xmlhttp.responseText;
+                  reply_span.innerHTML = reply; 
+                  //text to speech
+                  msg.text = reply;
+                  window.speechSynthesis.speak(msg);
+        	  }
+          }
+          
+          xmlhttp.open("GET","/Index.cgi/input?words="+final_transcript,true);
+          xmlhttp.send();
+          
+        };
+        speech.onerror = function(event) {
+            // Either 'No-speech' or 'Network connection error'
+            console.error(event.error);
+        };
+        speech.onend = function() {
+            // When recognition ends
+            reset();
+        };
+
+      }
+    };
+  </script>
+</html>
